@@ -5,6 +5,7 @@
 {{ $st := .page }}
 {{ $items_type := $st.Params.content.page_type | default "post" }}
 {{ $items_offset := $st.Params.content.offset | default 0 }}
+{{ $item_picture_left := $st.Params.design.pictures_left | default false }}
 {{ $items_count := $st.Params.content.count }}
 {{ if eq $items_count 0 }}
   {{ $items_count = 65535 }}
@@ -83,7 +84,7 @@
     {{ else if eq $st.Params.design.view 4 | and (eq $items_type "publication") }}
       {{ partial "li_citation" . }}
     {{ else }}
-      {{ partial "li_compact" . }}
+      {{ partial "li_compact.html" (dict "root" . "picture_left" $item_picture_left ) }}
     {{ end }}
   {{end}}
 

@@ -1,4 +1,5 @@
-{{ $item := . }}
+{{ $item := .root }}
+{{ $items_picture_left := .picture_left }}
 
 {{/* Dynamic view adjusts to content type. */}}
 {{ $show_authors_only := false }}{{/* Show authors only or full metadata? */}}
@@ -75,7 +76,7 @@
     {{ end }}
 
   </div>
-  <div class="ml-3">
+  {{ if $items_picture_left }}<div class="mr-3 order-first">{{ else }}<div class="ml-3">{{ end }}
     {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
     {{ with $resource }}
     {{ $filters := slice (images.GaussianBlur 21) (images.Pixelate 8) }}
