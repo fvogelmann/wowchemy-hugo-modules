@@ -15,7 +15,7 @@
     {{ else if eq $.Params.view 3 }}
       {{ partial "li_card" . }}
     {{ else }}
-      {{ partial "li_compact.html" (dict "root" . "picture_left" (default false $.Params.design.pictures_left) ) }}
+      {{ partial "li_compact.html" (dict "root" . "picture_left" (default false $.Params.picture_left) ) }}
     {{ end }}
   {{ end }}
 
