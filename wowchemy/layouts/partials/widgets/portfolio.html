@@ -5,8 +5,7 @@
 {{ $st := .page }}
 {{ $items_type := $st.Params.content.page_type | default "project" }}
 {{ $columns := $st.Params.design.columns | default "2" }}
-
-{{ $columns := $st.Params.design.columns | default "2" }}
+{{ $item_picture_left := $st.Params.design.pictures_left | default false }}
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
 
@@ -59,7 +58,7 @@
       {{ if eq $st.Params.design.view 1 }}
         {{ partial "portfolio_li_list" (dict "item" $item) }}
       {{ else if eq $st.Params.design.view 2 }}
-        {{ partial "portfolio_li_compact" (dict "item" $item) }}
+        {{ partial "portfolio_li_compact" (dict "item" $item "picture_left" $item_picture_left) }}
       {{ else if eq $st.Params.design.view 3 }}
         {{ partial "portfolio_li_card" (dict "widget" $st "index" $idx "item" $item "link" $link "target" $target) }}
       {{ else }}

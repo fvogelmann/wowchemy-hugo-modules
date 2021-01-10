@@ -4,6 +4,9 @@
 {{ $view := (.Get "view") | default 2 }}
 {{ $view = int $view }}
 
+{{/* Default picture to the right in compact view */}}
+{{ $picture_left := (eq (.Get "picture_left") "true") | default false }}
+
 {{ with site.GetPage $page }}
   {{ if eq $view 1 }}
     {{ partial "li_list" . }}
@@ -12,6 +15,6 @@
   {{ else if eq $view 4 }}
     {{ partial "li_citation" . }}
   {{ else }}
-    {{ partial "li_compact.html" (dict "root" $item "picture_left" false) }}
+    {{ partial "li_compact.html" (dict "root" . "picture_left" $picture_left ) }}
   {{ end }}
 {{ end }}

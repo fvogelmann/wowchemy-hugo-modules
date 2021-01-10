@@ -1,5 +1,9 @@
-{{ $item := .root }}
-{{ $items_picture_left := .picture_left }}
+{{ $item := . }} {{/* If partial was called with only one parameter (context), like in older templates, set $item to context */}}
+{{ $item_picture_left := false }} {{/* and $image_picture_left to default */}}
+{{ if reflect.IsMap . }}  {{/* if context is a map, then the partial was called with (dict "root" <value> "picture_left" <value>) */}}
+  {{ $item = .root }}   {{/* so set $item and $item_picture_left using the keys to the map */}}
+  {{ $item_picture_left = .picture_left }}
+{{ end }}
 
 {{/* Dynamic view adjusts to content type. */}}
 {{ $show_authors_only := false }}{{/* Show authors only or full metadata? */}}
@@ -76,7 +80,7 @@
     {{ end }}
 
   </div>
-  {{ if $items_picture_left }}<div class="mr-3 order-first">{{ else }}<div class="ml-3">{{ end }}
+  {{ if $item_picture_left }}<div class="mr-3 order-first">{{ else }}<div class="ml-3">{{ end }}
     {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
     {{ with $resource }}
     {{ $filters := slice (images.GaussianBlur 21) (images.Pixelate 8) }}
